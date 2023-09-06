@@ -4,10 +4,6 @@ from pandas import DataFrame, Series
 import os
 
 
-def printuser():
-    print(os.getlogin())
-
-
 # %%
 def plot_cm(clf, X_test, y_test, labels=["STPAG", "LTPAG", "NPAG"]):
     """Plot confusion matrix for a classifier
