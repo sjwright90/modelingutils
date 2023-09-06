@@ -1,6 +1,11 @@
 from sklearn.metrics import confusion_matrix, f1_score, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 from pandas import DataFrame, Series
+import os
+
+
+def printuser():
+    print(os.getlogin())
 
 
 # %%
