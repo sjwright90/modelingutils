@@ -1,0 +1,1 @@
+This is a note for Sam, he needs to add the function 'newFunction'
