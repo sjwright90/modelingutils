@@ -1,0 +1,1 @@
+from modelingutils.model_setup import check_Xy_for_na
