@@ -25,6 +25,7 @@ def check_Xy_for_na(X, y):
         assert y.isna().sum() == 0
     except AssertionError:
         print("There are missing values in the target variable")
+        raise
 
     try:
         print("Checking for missing values in the features")

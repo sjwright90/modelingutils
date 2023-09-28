@@ -5,7 +5,7 @@ import os
 
 
 # %%
-def plot_cm(clf, X_test, y_test, labels=["STPAG", "LTPAG", "NPAG"]):
+def plot_cm(clf, X_test, y_test, labels=None):
     """Plot confusion matrix for a classifier
     Parameters
     ----------
@@ -19,6 +19,8 @@ def plot_cm(clf, X_test, y_test, labels=["STPAG", "LTPAG", "NPAG"]):
     -------
     cmd : ConfusionMatrixDisplay
         The confusion matrix plot, a ConfusionMatrixDisplay object"""
+    if labels is None:
+        labels = ["STPAG", "LTPAG", "NPAG"]
     y_pred = clf.predict(X_test)
     cm = confusion_matrix(y_test, y_pred, labels=labels)
     cmd = ConfusionMatrixDisplay(cm, display_labels=labels)
@@ -78,9 +80,7 @@ def side_by_side_cm(clf_a, clf_b, X_test, y_test, sup_title="", **kwargs):
 
 
 # %%
-def make_props_df(
-    clf_a, clf_b, X_test, y_test, ordered_labels=["STPAG", "LTPAG", "NPAG"]
-):
+def make_props_df(clf_a, clf_b, X_test, y_test, ordered_labels=None):
     """Make a dataframe with proportions of predictions for each class
     Parameters
     ----------
@@ -97,6 +97,8 @@ def make_props_df(
     proportions : pandas DataFrame
         The dataframe with proportions of predictions for each class
     """
+    if ordered_labels is None:
+        ordered_labels = ["STPAG", "LTPAG", "NPAG"]
     y_pred = clf_a.predict(X_test)
     y_pred_dt = clf_b.predict(X_test)
     proportions = DataFrame(
