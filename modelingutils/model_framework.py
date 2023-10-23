@@ -59,40 +59,28 @@ lm_param_grid = {
 }
 
 
-mdls_dict = {
-    "Decision Tree": {
-        "model": dt_clf,
-        "param_grid": dt_param_grid,
+# %%
+def make_mdls_dict(model_name, model):
+    mdls_dict = {}
+    for mdl_name, mdl in zip(model_name, model):
+        mdls_dict[mdl_name] = {
+            "model": mdl,
+            "param_grid": None,
+            "master_pred_proba": [],
+            "master_pred": [],
+            "master_true": [],
+            "master_index": [],
+        }
+    return mdls_dict
+
+    return {
+        "model": model,
+        "param_grid": None,
         "master_pred_proba": [],
         "master_pred": [],
         "master_true": [],
         "master_index": [],
-    },
-    "Random Forest": {
-        "model": rf_clf,
-        "param_grid": rf_param_grid,
-        "master_pred_proba": [],
-        "master_pred": [],
-        "master_true": [],
-        "master_index": [],
-    },
-    "Gradient Boosting": {
-        "model": gb_clf,
-        "param_grid": gb_param_grid,
-        "master_pred_proba": [],
-        "master_pred": [],
-        "master_true": [],
-        "master_index": [],
-    },
-    "Logistic Regression": {
-        "model": lm_clf,
-        "param_grid": lm_param_grid,
-        "master_pred_proba": [],
-        "master_pred": [],
-        "master_true": [],
-        "master_index": [],
-    },
-}
+    }
 
 
 cat_cols = []
@@ -122,3 +110,9 @@ def make_pipe(clf):
 
 cv_outer = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 cv_inner = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+
+# %%
+class Model_Grid:
+    def __init__(self, model_list, model_names, transformer_list) -> None:
+        self.model_dict = make_mdls_dict(model_names, model_list)
