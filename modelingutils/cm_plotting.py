@@ -28,6 +28,40 @@ def plot_cm(clf, X_test, y_test, labels=None):
     return cmd
 
 
+def make_save_cm(true_vals, pred_vals, title, wdir, additional_fname="", labels=None):
+    """Make and save a confusion matrix plot
+    Parameters
+    ----------
+    true_vals : array-like
+        The true values
+    pred_vals : array-like
+        The predicted values
+
+    title : str
+        The title of the plot
+    wdir : str
+        The path to the working directory where the plot will be saved
+    additional_fname : str
+        Additional text to be added to the filename
+    labels : list
+        The labels for the confusion matrix
+    Returns
+    -------
+    None
+        Saves the plot to the specified path
+    """
+    if labels is None:
+        labels = ["STPAG", "LTPAG", "NPAG"]
+    fig, ax = plt.subplots()
+    ConfusionMatrixDisplay.from_predictions(
+        true_vals,
+        pred_vals,
+        labels=labels,
+    ).plot(ax=ax)
+    ax.set_title(title)
+    fig.savefig(wdir / f"{mdl}_{additional_fname}_cm.png", dpi=300, bbox_inches="tight")
+
+
 # %%
 def side_by_side_cm(clf_a, clf_b, X_test, y_test, sup_title="", **kwargs):
     """Plot side by side confusion matrices for two classifiers
